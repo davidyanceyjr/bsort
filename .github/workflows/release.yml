@@ -1,0 +1,56 @@
+name: Release Draft
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build-release-draft:
+    name: Build Release Draft Artifact
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Install stable Rust toolchain
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Resolve release artifact contract
+        id: artifact
+        run: |
+          package_name="$(cargo metadata --no-deps --format-version 1 | jq -r '.packages[0].name')"
+          package_version="$(cargo metadata --no-deps --format-version 1 | jq -r '.packages[0].version')"
+          target_triple="$(rustc -vV | sed -n 's/^host: //p')"
+          artifact_name="${package_name}-${package_version}-${target_triple}"
+          stage_dir="dist/${artifact_name}"
+
+          {
+            echo "package_name=${package_name}"
+            echo "artifact_name=${artifact_name}"
+            echo "stage_dir=${stage_dir}"
+          } >> "${GITHUB_OUTPUT}"
+
+      - name: Build release binary
+        run: cargo build --release
+
+      - name: Stage draft artifact
+        run: |
+          mkdir -p "${{ steps.artifact.outputs.stage_dir }}"
+          cp "target/release/${{ steps.artifact.outputs.package_name }}" "${{ steps.artifact.outputs.stage_dir }}/${{ steps.artifact.outputs.package_name }}"
+
+      - name: Validate staged artifact
+        run: |
+          stage_dir="${{ steps.artifact.outputs.stage_dir }}"
+          binary_path="${stage_dir}/${{ steps.artifact.outputs.package_name }}"
+
+          test -d "${stage_dir}"
+          test -f "${binary_path}"
+          test -x "${binary_path}"
+          test "$(find "${stage_dir}" -maxdepth 1 -type f | wc -l)" -eq 1
+
+      - name: Upload draft artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ steps.artifact.outputs.artifact_name }}
+          path: ${{ steps.artifact.outputs.stage_dir }}
+          if-no-files-found: error

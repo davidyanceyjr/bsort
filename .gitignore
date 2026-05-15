@@ -1,0 +1,29 @@
+# Rust build output
+/target/
+
+# Coverage and profiling
+*.profraw
+*.profdata
+coverage/
+
+# Rust and cargo temp files
+**/*.rs.bk
+
+# OS/editor
+.DS_Store
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Local runtime data
+.history.db
+*.db
+*.db-shm
+*.db-wal
+
+# Local generated/cache data
+.local/
+.cache/
+tmp/
+*.note

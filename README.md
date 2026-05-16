@@ -57,6 +57,12 @@ Requirements:
 
 - Rust stable toolchain with Cargo support.
 
+Manual data files:
+
+- `tests/data/bsort_data.data` for normal local play.
+- `tests/data/messy_data.data` for blanks, duplicates, whitespace, and invalid rows.
+- Add more tracked datasets under `tests/data/` for edge cases and application-breaker inputs.
+
 Checks:
 
 ```text

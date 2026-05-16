@@ -5,7 +5,7 @@ last_completed_bundle: 0029-release-installer-script
 last_completed_slices:
 - 0029-release-installer-script
 status: completed
-branch: slice/0029-release-installer
+branch: slice/test-data-note
 test_command: cargo test
 
 ## Ready
@@ -42,3 +42,4 @@ approved_layers:
 - Follow-up hotfix branch `slice/check-cli-broken-pipe-fix` prepared; `tests/check_cli.rs` now tolerates `BrokenPipe` when the CLI exits before consuming stdin.
 - New requested work: slice `0029` proposed to add a shipped `install.sh` into release output.
 - Slice `0029` implemented on session branch; release artifact now stages `install.sh` beside `bsort`, and README documents artifact install usage.
+- Local tracked test data files moved under `tests/data/`; README now notes future edge-case and breaker datasets.

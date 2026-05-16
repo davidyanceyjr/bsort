@@ -8,6 +8,7 @@ test_command: cargo test
 
 ## Ready
 
+- 0026-branch-bundle-policy
 - 0003-bubble-sort-core
 - 0004-order-helpers
 - 0009-stdin-reader
@@ -53,3 +54,7 @@ test_command: cargo test
 - Public GitHub repo created at `https://github.com/davidyanceyjr/bsort`.
 - `origin` configured; repo has no default branch yet because no push has happened.
 - Next slice queued: `0003-bubble-sort-core`.
+- Planning decision: default branch workflow is policy B, one branch per small related slice bundle.
+- Proposed repo workflow slice bundle added: `0026` to `0028`.
+- Gate 1 approved for repo workflow slice bundle `0026` to `0028`.
+- `0026-branch-bundle-policy` is ready.

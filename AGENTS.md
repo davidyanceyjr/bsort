@@ -49,6 +49,7 @@ SESSION.md
 BOOTSTRAP.md
 SESSIONS/*.md
 AGENTS.md
+WORKFLOW.md
 SKILLS/*.md
 ```
 
@@ -78,22 +79,27 @@ After bootstrap, stop at Gate 1.
 ## Session Flow
 
 1. Read `AGENTS.md`.
-2. Read `SESSION.md`.
-3. Read current slice from `SESSIONS/`.
-4. Read only required `SKILLS/`.
-5. Read only source/test files listed by slice.
-6. Act only inside allowed paths.
-7. Run required checks.
-8. Make `SESSION.md` factually correct.
-9. Run `session-update` cleanup only if needed.
+2. Read `WORKFLOW.md`.
+3. Read `SESSION.md`.
+4. Read current slice from `SESSIONS/`.
+5. Read only required `SKILLS/`.
+6. Read only source/test files listed by slice.
+7. Act only inside allowed paths.
+8. Run required checks.
+9. Make `SESSION.md` factually correct.
 10. Update `PLAN.md` if the `SESSION.md` change affects plan truth.
-11. Report compact result.
+11. Update the completed slice file in `SESSIONS/` so its status matches reality.
+12. Run `session-update` cleanup only if needed.
+13. Report compact result.
 
 ## Plan Sync Rule
 
 - Make `SESSION.md` factually correct before any cleanup or plan sync.
-- Run session cleanup under the `session-update` skill only if needed.
 - Update `PLAN.md` after `SESSION.md` when the session change affects plan truth.
+- Update the completed slice file after `PLAN.md` when implementation changes slice status.
+- Keep `SESSION.md`, `PLAN.md`, and the completed `SESSIONS/*.md` file factually aligned.
+- Do not leave `SESSION.md` without a valid next-session handoff.
+- Run session cleanup under the `session-update` skill only if needed.
 - Plan truth means slice status, ready queue, blocked state, dependencies, conflicts, or slice inventory.
 - Do not update `PLAN.md` for session-only notes that do not change plan truth.
 
@@ -104,6 +110,7 @@ There are two approval gates.
 ### Gate 1: Plan Approval
 
 Required before implementation slices are marked `ready`.
+Required before any implementation bundle is approved.
 
 Agent may:
 
@@ -111,12 +118,14 @@ Agent may:
 - inspect `PLAN.md`
 - propose slice list
 - propose dependencies
+- propose bundle grouping by scope
+- propose parallel-safe slices inside a bundle
 - mark blockers
 
 Agent must not:
 
 - write code
-- create large slice batches without approval
+- create bundles larger than 3 slices
 - mark slices `ready` unless approved
 
 Output format:
@@ -132,6 +141,13 @@ Generated:
 Proposed slices:
 - count: N
 
+Proposed bundles:
+- bundle-id: slice-a, slice-b
+- bundle-id: slice-c
+
+Parallel:
+- bundle-id: yes|no
+
 Blocked:
 - none | N items
 
@@ -140,11 +156,11 @@ Approve slice plan?
 
 ### Gate 2: Implementation Approval
 
-Required before implementing a ready slice.
+Required before implementing an approved bundle or a single approved slice.
 
 Agent may:
 
-- inspect current slice
+- inspect current slice or bundle
 - inspect allowed files
 - inspect tests
 - identify ambiguity
@@ -161,8 +177,12 @@ Output format:
 ```text
 GATE 2 REQUIRED
 
-Slice:
+Bundle:
+- bundle-id
+
+Slices:
 - 0001-name
+- 0002-name
 
 Will change:
 - path/a
@@ -177,7 +197,7 @@ Risk:
 Approve?
 ```
 
-After approval, implement only that slice.
+After approval, implement only that bundle.
 
 ## Slice Rules
 
@@ -193,6 +213,21 @@ A slice should:
 - fit in one prompt chunk
 
 Reject broad slices.
+
+## Bundle Rules
+
+Each bundle must stay small.
+
+A bundle should:
+
+- contain 1 to 3 slices
+- group slices by scope
+- include only slices with clear dependency order
+- allow downstream slices in the same bundle when the bundle also includes their upstream dependency slices
+- allow parallel implementation only for slices that do not depend on each other
+- stay small enough for one reviewable session bundle
+
+Reject broad bundles.
 
 Bad:
 
@@ -213,16 +248,21 @@ Good:
 
 When project grows, add slices. Do not widen slices.
 
+Bundle related slices. Do not merge unrelated scopes.
+
 Prefer:
 
 - more pure-function slices
 - more independent tests
 - explicit dependencies
 - explicit conflicts
+- small approved bundles
+- parallel work only for independent slices
 
 Avoid:
 
 - broad feature slices
+- broad bundle batches
 - long session notes
 - loading unrelated files
 

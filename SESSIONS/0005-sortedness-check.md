@@ -1,7 +1,7 @@
 ---
 id: 0005
 title: sortedness-check
-status: proposed
+status: done
 layer: L1
 depends_on: ["0003", "0004"]
 parallel_safe: true

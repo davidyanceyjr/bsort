@@ -1,7 +1,7 @@
 ---
 id: 0028
 title: pr-policy-ci-check
-status: approved
+status: done
 layer: L2
 depends_on: ["0026", "0027"]
 parallel_safe: false

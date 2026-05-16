@@ -1,7 +1,7 @@
 ---
 id: 0007
 title: line-parser-and-parse-errors
-status: proposed
+status: done
 layer: L2
 depends_on: ["0001", "0002"]
 parallel_safe: true

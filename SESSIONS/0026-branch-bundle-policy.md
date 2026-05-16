@@ -1,7 +1,7 @@
 ---
 id: 0026
 title: branch-bundle-policy
-status: ready
+status: done
 layer: L0
 depends_on: ["0025"]
 parallel_safe: false

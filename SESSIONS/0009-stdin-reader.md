@@ -1,7 +1,7 @@
 ---
 id: 0009
 title: stdin-reader
-status: proposed
+status: done
 layer: L4
 depends_on: ["0001"]
 parallel_safe: true

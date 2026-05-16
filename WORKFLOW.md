@@ -9,14 +9,22 @@ It covers:
 - branch naming
 - slice gates
 - session/work-bundle grouping
+- workflow file sync
 - pull request expectations
 
 ## Gate Boundaries
 
-Gate approval is per slice.
+Gate 1 approval is per planned bundle.
+Gate 2 approval is per implementation bundle.
 
 Rules:
-- Keep approval and implementation scope at the slice level.
+- Keep bundle scope small and coherent.
+- A bundle may contain 1 to 3 slices.
+- Group slices by scope during planning.
+- Only place slices in the same bundle when they are closely related.
+- Slices with no dependency on each other may be implemented in parallel inside one approved bundle.
+- A bundle may include dependency-ordered slices when the same bundle includes the upstream slices they depend on.
+- Do not put dependency-blocked future work into the current bundle unless the bundle also includes the needed upstream slice work.
 - Do not treat every approved slice as a mandatory branch boundary.
 - A slice may be implemented alone or as part of a small related session bundle.
 
@@ -56,9 +64,28 @@ A session bundle is a small related set of slices that can be reviewed together.
 
 Rules:
 - Group only closely related slices.
+- Bundle size max: 3 slices.
 - Keep the bundle small enough for one clear PR.
 - Dependent slices in the same topic may share a branch.
+- Independent slices in the same scope may be implemented in parallel.
 - Unrelated behavior changes must be split onto separate branches.
+
+## Workflow File Sync
+
+Workflow truth must stay aligned across session, plan, and slice files.
+
+Rules:
+- After completing a slice, update `SESSION.md` first.
+- Update `PLAN.md` next if the completed work changes plan truth.
+- Update the completed slice file in `SESSIONS/` so its header status matches reality.
+- For completed slice work, keep `SESSION.md`, `PLAN.md`, and the completed `SESSIONS/<id>-*.md` file in sync in the same change.
+- Do not leave a slice marked done in one workflow file and proposed, approved, or ready in another.
+- Before closing a session, produce a valid next-session handoff.
+- Minimum handoff truth:
+- `SESSION.md` names the next ready slice, or says blocked, or says project complete.
+- `PLAN.md` marks all newly unblocked slices `ready`.
+- The completed slice file status is `done`.
+- Do not end a session with an empty ready queue unless the project is blocked or complete.
 
 ## Pull Requests
 

@@ -1,7 +1,7 @@
 ---
 id: 0027
 title: pr-template-for-slice-bundles
-status: approved
+status: done
 layer: L1
 depends_on: ["0026"]
 parallel_safe: false

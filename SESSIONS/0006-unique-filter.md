@@ -1,7 +1,7 @@
 ---
 id: 0006
 title: unique-filter
-status: proposed
+status: done
 layer: L1
 depends_on: ["0003"]
 parallel_safe: true

@@ -1,7 +1,7 @@
 ---
 id: 0003
 title: bubble-sort-core
-status: proposed
+status: done
 layer: L1
 depends_on: ["0001"]
 parallel_safe: true

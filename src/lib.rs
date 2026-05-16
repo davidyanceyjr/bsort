@@ -1,5 +1,5 @@
-pub mod cli;
 pub mod check;
+pub mod cli;
 pub mod exit_codes;
 pub mod help;
 pub mod io;
@@ -10,8 +10,8 @@ pub mod sort;
 pub mod types;
 pub mod unique;
 
-pub use cli::{parse_args, CliConfig};
 pub use check::is_sorted;
+pub use cli::{parse_args, CliConfig};
 pub use exit_codes::{CHECK_FAILED, IO_ERROR, SUCCESS, USAGE_OR_PARSE_ERROR};
 pub use help::{usage_text, version_text};
 pub use io::{read_file_text, read_stdin_text};
@@ -49,8 +49,7 @@ pub fn run() -> AppResult<()> {
 fn read_input(config: &CliConfig) -> AppResult<String> {
     match config.input_path.as_deref() {
         Some(path) => read_file_text(path),
-        None => read_stdin_text()
-            .map_err(|err| AppError::new(IO_ERROR, format!("stdin: {err}"))),
+        None => read_stdin_text().map_err(|err| AppError::new(IO_ERROR, format!("stdin: {err}"))),
     }
 }
 

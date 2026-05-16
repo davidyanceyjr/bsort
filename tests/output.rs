@@ -26,5 +26,8 @@ fn formats_parse_error_for_stderr() {
 fn formats_file_error_for_stderr() {
     let err = AppError::new(IO_ERROR, "numbers.txt: No such file or directory");
 
-    assert_eq!(format_stderr(&err), "numbers.txt: No such file or directory\n");
+    assert_eq!(
+        format_stderr(&err),
+        "numbers.txt: No such file or directory\n"
+    );
 }

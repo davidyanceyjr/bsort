@@ -5,7 +5,7 @@ last_completed_bundle: 0015-cli-acceptance-tests
 last_completed_slices:
 - 0015-cli-acceptance-tests
 status: idle
-branch: slice/0015-cli-acceptance-tests
+branch: slice/ci-format-fix
 test_command: cargo test
 
 ## Ready
@@ -38,4 +38,5 @@ approved_layers:
 - Slice `0013` implemented on session branch; `--check` now exits `0` for sorted input, `1` for unsorted input, and prints no stdout/stderr for check outcomes.
 - Slice `0015` implemented on session branch; acceptance CLI coverage now exercises stdin/file flows, sort modes, check exits, blank-line handling, parse errors, usage errors, file errors, help, and version.
 - Session verification: `CARGO_HOME=.cargo-home RUSTUP_HOME=.rustup-home cargo test` passes.
+- CI hotfix branch `slice/ci-format-fix` prepared; formatting drift fixed and `src/help.rs` updated to satisfy `clippy -D warnings`.
 - Project complete.

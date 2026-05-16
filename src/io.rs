@@ -7,8 +7,7 @@ pub fn read_stdin_text() -> io::Result<String> {
 }
 
 pub fn read_file_text(path: &str) -> AppResult<String> {
-    fs::read_to_string(path)
-        .map_err(|err| AppError::new(IO_ERROR, format!("{}: {}", path, err)))
+    fs::read_to_string(path).map_err(|err| AppError::new(IO_ERROR, format!("{}: {}", path, err)))
 }
 
 fn read_all<R: Read>(mut reader: R) -> io::Result<String> {

@@ -1,8 +1,7 @@
 use crate::VERSION;
 
 pub fn usage_text() -> String {
-    format!(
-        "\
+    "\
 Usage: bsort [OPTIONS] [FILE]
 
 Options:
@@ -14,7 +13,7 @@ Options:
   --help          Print usage and exit 0
   --version       Print version and exit 0
 "
-    )
+    .to_string()
 }
 
 pub fn version_text() -> String {

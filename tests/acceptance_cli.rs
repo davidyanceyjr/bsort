@@ -135,7 +135,10 @@ fn invalid_integer_error_includes_line_number() {
 
 #[test]
 fn too_many_arguments_exit_two() {
-    let output = run(&["tests/fixtures/file_numbers.txt", "tests/fixtures/sorted_numbers.txt"]);
+    let output = run(&[
+        "tests/fixtures/file_numbers.txt",
+        "tests/fixtures/sorted_numbers.txt",
+    ]);
 
     assert_eq!(output.status.code(), Some(2));
     assert!(output.stdout.is_empty());

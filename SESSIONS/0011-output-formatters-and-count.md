@@ -1,7 +1,7 @@
 ---
 id: 0011
 title: output-formatters-and-count
-status: ready
+status: done
 layer: L4
 depends_on: ["0001", "0002"]
 parallel_safe: true

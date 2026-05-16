@@ -17,13 +17,13 @@
 | 0005 | L1 | sortedness-check | done | 0003, 0004 | true | none | low |
 | 0006 | L1 | unique-filter | done | 0003 | true | none | low |
 | 0007 | L2 | line-parser-and-parse-errors | done | 0001, 0002 | true | none | medium |
-| 0008 | L3 | option-parser-and-usage-errors | ready | 0001, 0002, 0004 | true | 0012, 0013, 0014 | medium |
+| 0008 | L3 | option-parser-and-usage-errors | done | 0001, 0002, 0004 | true | 0012, 0013, 0014 | medium |
 | 0009 | L4 | stdin-reader | done | 0001 | true | none | low |
-| 0010 | L4 | file-reader-and-exit3 | ready | 0001, 0002 | true | none | low |
-| 0011 | L4 | output-formatters-and-count | ready | 0001, 0002 | true | none | low |
+| 0010 | L4 | file-reader-and-exit3 | done | 0001, 0002 | true | none | low |
+| 0011 | L4 | output-formatters-and-count | done | 0001, 0002 | true | none | low |
 | 0012 | L5 | sort-flow-main | approved | 0002, 0003, 0004, 0006, 0007, 0008, 0009, 0010, 0011 | false | 0001, 0013, 0014 | high |
 | 0013 | L5 | check-flow-main | approved | 0002, 0004, 0005, 0007, 0008, 0009, 0010 | false | 0001, 0012, 0014 | medium |
-| 0014 | L6 | help-and-version | approved | 0001, 0002, 0008 | false | 0001, 0012, 0013 | low |
+| 0014 | L6 | help-and-version | ready | 0001, 0002, 0008 | false | 0001, 0012, 0013 | low |
 | 0015 | L5 | cli-acceptance-tests | approved | 0012, 0013, 0014 | false | none | medium |
 | 0016 | L0 | github-repo-scaffold | done | 0001 | true | none | low |
 | 0017 | L0 | test-command-wiring | done | 0001 | true | none | low |
@@ -41,9 +41,7 @@
 
 ## Ready Queue
 
-- 0008-option-parser-and-usage-errors
-- 0010-file-reader-and-exit3
-- 0011-output-formatters-and-count
+- 0014-help-and-version
 
 ## Blocked
 

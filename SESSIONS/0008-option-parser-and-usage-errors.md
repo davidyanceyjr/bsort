@@ -1,7 +1,7 @@
 ---
 id: 0008
 title: option-parser-and-usage-errors
-status: ready
+status: done
 layer: L3
 depends_on: ["0001", "0002", "0004"]
 parallel_safe: true

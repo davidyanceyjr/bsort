@@ -1,7 +1,7 @@
 ---
 id: 0014
 title: help-and-version
-status: proposed
+status: ready
 layer: L6
 depends_on: ["0001", "0002", "0008"]
 parallel_safe: false
@@ -46,4 +46,4 @@ Errors:
 
 ## Blockers
 
-- Depends on blocked slice `0008`.
+- none

@@ -32,10 +32,11 @@ I carefully reviewed the repository and considered several approaches...
 Hard limits:
 
 - `SESSION.md` max: 2k tokens.
-- Current slice file must fit in one prompt chunk.
-- Implementation stage may use max 40% of full LLM context.
+- Slices are implemented in budles of 3 maximum.
+- Current slice bundle files must fit in one prompt chunk.
+- Implementation stage may use max 20% of full LLM context.
 - Prefer many narrow slices over broad slices.
-- Load only files needed for the current slice.
+- Load only files needed for the current slice bundle.
 - Do not load whole repo unless explicitly told.
 
 ## Repo Truth Files
@@ -81,16 +82,24 @@ After bootstrap, stop at Gate 1.
 1. Read `AGENTS.md`.
 2. Read `WORKFLOW.md`.
 3. Read `SESSION.md`.
-4. Read current slice from `SESSIONS/`.
+4. Build current slice bundle from `SESSIONS/`.
 5. Read only required `SKILLS/`.
-6. Read only source/test files listed by slice.
+6. Read only source/test files listed by slice bundle.
 7. Act only inside allowed paths.
 8. Run required checks.
 9. Make `SESSION.md` factually correct.
+   Bundle truth includes current branch, completed bundle id, and completed slice list.
 10. Update `PLAN.md` if the `SESSION.md` change affects plan truth.
-11. Update the completed slice file in `SESSIONS/` so its status matches reality.
+11. Update the completed slice files in `SESSIONS/` so its status matches reality.
 12. Run `session-update` cleanup only if needed.
 13. Report compact result.
+
+## Branch Rule
+
+- Only workflow-scoped changes may be done on `main`.
+- Any implementation session that changes source files, tests, or other non-workflow files must use a session branch.
+- Create or switch to the session branch before editing implementation files.
+- Keep `SESSION.md` branch truth aligned with the actual branch name.
 
 ## Plan Sync Rule
 
@@ -99,6 +108,8 @@ After bootstrap, stop at Gate 1.
 - Update the completed slice file after `PLAN.md` when implementation changes slice status.
 - Keep `SESSION.md`, `PLAN.md`, and the completed `SESSIONS/*.md` file factually aligned.
 - Do not leave `SESSION.md` without a valid next-session handoff.
+- In bundle workflow, prefer `last_completed_bundle` and `last_completed_slices` over single-slice `last_completed`.
+- Keep `SESSION.md` branch truth aligned with `git branch --show-current`.
 - Run session cleanup under the `session-update` skill only if needed.
 - Plan truth means slice status, ready queue, blocked state, dependencies, conflicts, or slice inventory.
 - Do not update `PLAN.md` for session-only notes that do not change plan truth.
@@ -438,6 +449,14 @@ Before work:
 ```text
 git status --short
 ```
+
+Before any non-workflow implementation change:
+
+```text
+git branch --show-current
+```
+
+If current branch is `main`, stop and create or switch to a session branch first.
 
 After work:
 

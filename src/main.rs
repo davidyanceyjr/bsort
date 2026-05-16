@@ -1,6 +1,6 @@
 fn main() {
-    if let Err(message) = bsort::run() {
-        eprintln!("{message}");
-        std::process::exit(1);
+    if let Err(err) = bsort::run() {
+        eprintln!("{}", err.message);
+        std::process::exit(err.exit_code);
     }
 }

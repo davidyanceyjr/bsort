@@ -1,7 +1,7 @@
 ---
 id: 0010
 title: file-reader-and-exit3
-status: ready
+status: done
 layer: L4
 depends_on: ["0001", "0002"]
 parallel_safe: true

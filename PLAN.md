@@ -24,7 +24,7 @@
 | 0012 | L5 | sort-flow-main | done | 0002, 0003, 0004, 0006, 0007, 0008, 0009, 0010, 0011 | false | 0001, 0013, 0014 | high |
 | 0013 | L5 | check-flow-main | done | 0002, 0004, 0005, 0007, 0008, 0009, 0010 | false | 0001, 0012, 0014 | medium |
 | 0014 | L6 | help-and-version | done | 0001, 0002, 0008 | false | 0001, 0012, 0013 | low |
-| 0015 | L5 | cli-acceptance-tests | ready | 0012, 0013, 0014 | false | none | medium |
+| 0015 | L5 | cli-acceptance-tests | done | 0012, 0013, 0014 | false | none | medium |
 | 0016 | L0 | github-repo-scaffold | done | 0001 | true | none | low |
 | 0017 | L0 | test-command-wiring | done | 0001 | true | none | low |
 | 0018 | L1 | unit-test-skeleton | done | 0017 | true | none | low |
@@ -41,7 +41,7 @@
 
 ## Ready Queue
 
-- 0015-cli-acceptance-tests
+- none
 
 ## Blocked
 

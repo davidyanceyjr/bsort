@@ -1,7 +1,7 @@
 ---
 id: 0015
 title: cli-acceptance-tests
-status: proposed
+status: done
 layer: L5
 depends_on: ["0012", "0013", "0014"]
 parallel_safe: false

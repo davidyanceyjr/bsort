@@ -1,16 +1,13 @@
 # SESSION
 
 current_slice:
-last_completed: 0028-pr-policy-ci-check
+last_completed: 0009-stdin-reader
 status: idle
 branch: main
 test_command: cargo test
 
 ## Ready
 
-- 0003-bubble-sort-core
-- 0004-order-helpers
-- 0009-stdin-reader
 
 ## Active
 
@@ -32,4 +29,4 @@ approved_layers:
 - `cargo test` passes with repo-local `CARGO_HOME` and `RUSTUP_HOME`.
 - Public GitHub repo created at `https://github.com/davidyanceyjr/bsort`.
 - `origin/main` is synced with local `main`.
-- Next ready slice: `0003-bubble-sort-core`.
+- No ready slices remain.

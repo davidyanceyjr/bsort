@@ -12,13 +12,13 @@
 |---|---|---|---|---|---|---|---|
 | 0001 | L0 | toolchain-and-skeleton | done | none | false | 0012, 0013, 0014 | medium |
 | 0002 | L0 | exit-codes-and-shared-types | done | 0001 | true | none | low |
-| 0003 | L1 | bubble-sort-core | ready | 0001 | true | none | low |
-| 0004 | L1 | order-helpers | ready | 0001 | true | none | low |
+| 0003 | L1 | bubble-sort-core | done | 0001 | true | none | low |
+| 0004 | L1 | order-helpers | done | 0001 | true | none | low |
 | 0005 | L1 | sortedness-check | approved | 0003, 0004 | true | none | low |
 | 0006 | L1 | unique-filter | approved | 0003 | true | none | low |
 | 0007 | L2 | line-parser-and-parse-errors | approved | 0001, 0002 | true | none | medium |
 | 0008 | L3 | option-parser-and-usage-errors | approved | 0001, 0002, 0004 | true | 0012, 0013, 0014 | medium |
-| 0009 | L4 | stdin-reader | ready | 0001 | true | none | low |
+| 0009 | L4 | stdin-reader | done | 0001 | true | none | low |
 | 0010 | L4 | file-reader-and-exit3 | approved | 0001, 0002 | true | none | low |
 | 0011 | L4 | output-formatters-and-count | approved | 0001, 0002 | true | none | low |
 | 0012 | L5 | sort-flow-main | approved | 0002, 0003, 0004, 0006, 0007, 0008, 0009, 0010, 0011 | false | 0001, 0013, 0014 | high |
@@ -40,10 +40,6 @@
 | 0028 | L2 | pr-policy-ci-check | done | 0026, 0027 | false | none | medium |
 
 ## Ready Queue
-
-- 0003-bubble-sort-core
-- 0004-order-helpers
-- 0009-stdin-reader
 
 ## Blocked
 

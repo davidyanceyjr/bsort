@@ -5,6 +5,7 @@
 - Stack: Rust CLI with `Cargo.toml`, `src/main.rs`, `src/lib.rs`, and `tests/`.
 - Integer range: signed 64-bit integers.
 - `--desc` with `--count` or `--check`: usage error, exit `2`.
+- `--valid-only` skips blank, non-integer, and out-of-range rows without stderr.
 
 ## Slice Index
 
@@ -39,6 +40,9 @@
 | 0027 | L1 | pr-template-for-slice-bundles | done | 0026 | false | 0028 | low |
 | 0028 | L2 | pr-policy-ci-check | done | 0026, 0027 | false | none | medium |
 | 0029 | L6 | release-installer-script | done | 0022 | false | none | medium |
+| 0030 | L3 | valid-only-cli-surface | done | 0008, 0014 | true | 0032 | low |
+| 0031 | L2 | valid-only-parse-filter | done | 0002, 0007 | true | 0032 | medium |
+| 0032 | L5 | valid-only-main-and-acceptance | done | 0012, 0013, 0015, 0030, 0031 | false | none | medium |
 
 ## Ready Queue
 

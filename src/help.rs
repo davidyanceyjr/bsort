@@ -10,6 +10,7 @@ Options:
   --count         Print the parsed integer count
   --check         Check whether input is already sorted
   --ignore-blank  Ignore blank lines
+  --valid-only    Skip rows that are not valid i64 values
   --help          Print usage and exit 0
   --version       Print version and exit 0
 "

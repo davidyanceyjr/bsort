@@ -43,6 +43,19 @@ fn run_with_fixture(args: &[&str], fixture: &str) -> Output {
         .expect("binary should run")
 }
 
+fn run_with_data_file(args: &[&str], data_file: &str) -> Output {
+    Command::new(env!("CARGO_BIN_EXE_bsort"))
+        .args(args)
+        .arg(
+            Path::new(env!("CARGO_MANIFEST_DIR"))
+                .join("tests")
+                .join("data")
+                .join(data_file),
+        )
+        .output()
+        .expect("binary should run")
+}
+
 #[test]
 fn stdin_ascending_matches_spec_example() {
     let output = run_with_stdin(&[], "3\n1\n2\n");
@@ -131,6 +144,45 @@ fn invalid_integer_error_includes_line_number() {
     let stderr = String::from_utf8_lossy(&output.stderr);
     assert!(stderr.contains("line 2"));
     assert!(stderr.contains("abc"));
+}
+
+#[test]
+fn valid_only_sorts_dirty_data_file() {
+    let output = run_with_data_file(&["--valid-only"], "messy_data.data");
+
+    assert!(output.status.success());
+    assert_eq!(
+        String::from_utf8_lossy(&output.stdout),
+        "-2147483649\n-42\n-7\n-3\n0\n0\n5\n5\n9\n11\n17\n17\n19\n19\n42\n73\n88\n2147483648\n"
+    );
+    assert!(output.stderr.is_empty());
+}
+
+#[test]
+fn valid_only_count_uses_only_valid_rows() {
+    let output = run_with_data_file(&["--valid-only", "--count"], "messy_data.data");
+
+    assert!(output.status.success());
+    assert_eq!(String::from_utf8_lossy(&output.stdout), "18\n");
+    assert!(output.stderr.is_empty());
+}
+
+#[test]
+fn valid_only_check_evaluates_only_valid_rows() {
+    let output = run_with_data_file(&["--valid-only", "--check"], "messy_data.data");
+
+    assert_eq!(output.status.code(), Some(1));
+    assert!(output.stdout.is_empty());
+    assert!(output.stderr.is_empty());
+}
+
+#[test]
+fn dirty_data_file_still_fails_without_valid_only() {
+    let output = run_with_data_file(&[], "messy_data.data");
+
+    assert_eq!(output.status.code(), Some(2));
+    assert!(output.stdout.is_empty());
+    assert!(String::from_utf8_lossy(&output.stderr).contains("line 2"));
 }
 
 #[test]

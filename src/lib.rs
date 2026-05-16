@@ -38,7 +38,7 @@ pub fn run() -> AppResult<()> {
     }
 
     let input = read_input(&config)?;
-    let values = parse_lines(&input, config.ignore_blank)?;
+    let values = parse_lines(&input, config.ignore_blank, config.valid_only)?;
     let output = run_mode(&config, values)?;
 
     print!("{output}");

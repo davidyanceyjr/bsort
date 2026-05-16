@@ -1,11 +1,13 @@
 # SESSION
 
-current_slice: 0029-release-installer-script
-last_completed_bundle: 0029-release-installer-script
+current_slice: 0032-valid-only-main-and-acceptance
+last_completed_bundle: valid-only-core
 last_completed_slices:
-- 0029-release-installer-script
+- 0030-valid-only-cli-surface
+- 0031-valid-only-parse-filter
+- 0032-valid-only-main-and-acceptance
 status: completed
-branch: slice/test-data-note
+branch: slice/0030-0031-0032-valid-only
 test_command: cargo test
 
 ## Ready
@@ -43,3 +45,7 @@ approved_layers:
 - New requested work: slice `0029` proposed to add a shipped `install.sh` into release output.
 - Slice `0029` implemented on session branch; release artifact now stages `install.sh` beside `bsort`, and README documents artifact install usage.
 - Local tracked test data files moved under `tests/data/`; README now notes future edge-case and breaker datasets.
+- New requested work planned: `--valid-only` to skip dirty rows without parse failure.
+- Gate 1 approved for bundle `valid-only-core`: `0030` + `0031` + `0032`.
+- Bundle `valid-only-core` implemented on session branch; `--valid-only` now skips dirty rows for sort, count, and check flows.
+- Session verification: `CARGO_HOME=.cargo-home RUSTUP_HOME=.rustup-home cargo test` passes.

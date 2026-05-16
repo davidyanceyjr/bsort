@@ -7,6 +7,7 @@ pub struct CliConfig {
     pub unique: bool,
     pub mode: Mode,
     pub ignore_blank: bool,
+    pub valid_only: bool,
     pub help: bool,
     pub version: bool,
 }
@@ -19,6 +20,7 @@ impl Default for CliConfig {
             unique: false,
             mode: Mode::Sort,
             ignore_blank: false,
+            valid_only: false,
             help: false,
             version: false,
         }
@@ -40,6 +42,7 @@ where
             "--count" => config.mode = Mode::Count,
             "--check" => config.mode = Mode::Check,
             "--ignore-blank" => config.ignore_blank = true,
+            "--valid-only" => config.valid_only = true,
             "--help" => config.help = true,
             "--version" => config.version = true,
             _ if arg.starts_with('-') => {

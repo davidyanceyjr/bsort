@@ -13,6 +13,7 @@ fn accepts_zero_args() {
     assert_eq!(config.mode, Mode::Sort);
     assert!(!config.unique);
     assert!(!config.ignore_blank);
+    assert!(!config.valid_only);
     assert!(!config.help);
     assert!(!config.version);
 }
@@ -39,6 +40,7 @@ fn parses_each_flag() {
     let count = parse(&["bsort", "--count"]).unwrap();
     let check = parse(&["bsort", "--check"]).unwrap();
     let ignore_blank = parse(&["bsort", "--ignore-blank"]).unwrap();
+    let valid_only = parse(&["bsort", "--valid-only"]).unwrap();
     let help = parse(&["bsort", "--help"]).unwrap();
     let version = parse(&["bsort", "--version"]).unwrap();
 
@@ -47,6 +49,7 @@ fn parses_each_flag() {
     assert_eq!(count.mode, Mode::Count);
     assert_eq!(check.mode, Mode::Check);
     assert!(ignore_blank.ignore_blank);
+    assert!(valid_only.valid_only);
     assert!(help.help);
     assert!(version.version);
 }

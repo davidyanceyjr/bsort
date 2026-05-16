@@ -77,6 +77,9 @@ REQ-025: Delivered release output must include a POSIX shell installer for the b
 REQ-026: The installer must copy the shipped binary into a user-selected destination directory.
 REQ-027: The installer must default to `/usr/local/bin` when no destination is provided.
 REQ-028: The installer must fail with a non-zero exit code and stderr message when the shipped binary is missing or the destination is not writable.
+REQ-029: `--valid-only` must skip invalid input rows instead of failing parse.
+REQ-030: Under `--valid-only`, blank lines, non-integer tokens, and out-of-range integers must be ignored.
+REQ-031: `--valid-only` must apply consistently to sort, `--count`, and `--check`.
 
 ## Non-Functional
 
@@ -129,6 +132,18 @@ Output:
 ## `--ignore-blank`
 
 Ignore blank lines.
+
+## `--valid-only`
+
+Ignore rows that do not parse as signed 64-bit integers.
+
+Rules:
+
+- valid integer rows are kept
+- blank lines are skipped
+- non-integer rows are skipped
+- out-of-range integer rows are skipped
+- skipped rows do not write stderr
 
 ## `--help`
 
@@ -213,6 +228,7 @@ Rules:
 - one value per line
 - whitespace around value allowed
 - blank lines rejected unless `--ignore-blank`
+- invalid rows skipped when `--valid-only`
 - values must fit supported signed integer range
 
 ## Slice File Schema
@@ -478,6 +494,7 @@ The project is acceptable when:
 - `--count` prints parsed integer count.
 - `--check` returns correct exit status.
 - blank line behavior matches `--ignore-blank`.
+- `--valid-only` skips dirty rows and still completes successfully.
 - invalid integer errors include line number.
 - too many arguments exit `2`.
 - file read errors exit `3`.

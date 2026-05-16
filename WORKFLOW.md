@@ -10,6 +10,7 @@ It covers:
 - slice gates
 - session/work-bundle grouping
 - workflow file sync
+- git publish and clean
 - pull request expectations
 
 ## Gate Boundaries
@@ -83,6 +84,53 @@ Rules:
 - `PLAN.md` marks all newly unblocked slices `ready`.
 - The completed slice file status is `done`.
 - Do not end a session with an empty ready queue unless the project is blocked or complete.
+
+## Post-Implementation Git Flow
+
+After any implementation slice or approved bundle is complete:
+1. Run required tests and confirm pass or document why not run.
+2. Sync `SESSION.md`.
+3. Sync `PLAN.md` if plan truth changed.
+4. Sync the completed `SESSIONS/<id>-*.md` files.
+5. Stage only files that belong to the completed slice or bundle.
+6. Ask for approval only on the commit message.
+7. Commit on the session branch.
+8. Push the session branch to `origin`.
+9. Switch to `main`.
+10. Update local `main` from `origin/main` with `git pull --ff-only`.
+11. Merge the session branch into `main` with `git merge --ff-only`.
+12. Push `main`.
+13. Delete the merged session branch locally.
+14. Delete the merged session branch on `origin`.
+15. End on clean `main`.
+
+Rules:
+- Do not ask for an extra approval gate for staging, pushing, merging, or cleanup.
+- The only human gate in this flow is commit message approval.
+- Do not include unrelated uncommitted changes in the staged set.
+- Prefer direct command flow over ad hoc manual steps.
+- Do not create merge commits for this workflow.
+
+Stop and ask if:
+- unrelated dirty files are mixed into the worktree and cannot be safely excluded
+- required tests fail
+- `git pull --ff-only` fails on `main`
+- `git merge --ff-only` fails
+- push is rejected
+- branch protection or remote policy blocks the merge flow
+- workflow truth files disagree about completed status or next ready work
+
+Command pattern:
+- `git add <scoped-paths>`
+- `git commit -m "<approved-message>"`
+- `git push -u origin <session-branch>`
+- `git checkout main`
+- `git pull --ff-only`
+- `git merge --ff-only <session-branch>`
+- `git push origin main`
+- `git branch -d <session-branch>`
+- `git push origin --delete <session-branch>`
+- `git status --short`
 
 ## Pull Requests
 

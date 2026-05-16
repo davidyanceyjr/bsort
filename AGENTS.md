@@ -210,6 +210,30 @@ Approve?
 
 After approval, implement only that bundle.
 
+## Post-Implementation Git Flow
+
+After any completed implementation slice or approved bundle:
+- run required tests
+- update `SESSION.md`
+- update `PLAN.md` if plan truth changed
+- update completed `SESSIONS/*.md` files
+- stage only current slice or bundle files
+- ask only for commit message approval
+- commit on session branch
+- push branch
+- switch to `main`
+- `git pull --ff-only`
+- `git merge --ff-only <session-branch>`
+- push `main`
+- clean merged branch local and remote
+- end on clean `main`
+
+Rules:
+- Do not ask for a separate approval to stage, push, merge, or clean.
+- The only required human gate in this flow is the commit message.
+- Do not stage unrelated dirty worktree changes.
+- If `git pull --ff-only`, `git merge --ff-only`, or push fails, stop and ask.
+
 ## Slice Rules
 
 Each slice must be small.
@@ -464,7 +488,7 @@ After work:
 git diff --stat
 ```
 
-Do not commit unless human asks.
+After implementation sessions, run the post-implementation git flow.
 
 ## Definition of Done
 

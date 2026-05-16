@@ -84,11 +84,15 @@ After bootstrap, stop at Gate 1.
 5. Read only source/test files listed by slice.
 6. Act only inside allowed paths.
 7. Run required checks.
-8. Update `SESSION.md`.
-9. Report compact result.
+8. Make `SESSION.md` factually correct.
+9. Run `session-update` cleanup only if needed.
+10. Update `PLAN.md` if the `SESSION.md` change affects plan truth.
+11. Report compact result.
 
 ## Plan Sync Rule
 
+- Make `SESSION.md` factually correct before any cleanup or plan sync.
+- Run session cleanup under the `session-update` skill only if needed.
 - Update `PLAN.md` after `SESSION.md` when the session change affects plan truth.
 - Plan truth means slice status, ready queue, blocked state, dependencies, conflicts, or slice inventory.
 - Do not update `PLAN.md` for session-only notes that do not change plan truth.

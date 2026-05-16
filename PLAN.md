@@ -41,7 +41,6 @@
 
 ## Ready Queue
 
-- 0002-exit-codes-and-shared-types
 - 0003-bubble-sort-core
 - 0004-order-helpers
 - 0009-stdin-reader

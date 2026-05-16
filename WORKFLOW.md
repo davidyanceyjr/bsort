@@ -93,7 +93,7 @@ After any implementation slice or approved bundle is complete:
 3. Sync `PLAN.md` if plan truth changed.
 4. Sync the completed `SESSIONS/<id>-*.md` files.
 5. Stage only files that belong to the completed slice or bundle.
-6. Ask for approval only on the commit message.
+6. Ask for approval only on the prepared commit summary.
 7. Commit on the session branch.
 8. Push the session branch to `origin`.
 9. Switch to `main`.
@@ -106,7 +106,8 @@ After any implementation slice or approved bundle is complete:
 
 Rules:
 - Do not ask for an extra approval gate for staging, pushing, merging, or cleanup.
-- The only human gate in this flow is commit message approval.
+- The only human gate in this flow is approval of the prepared commit summary.
+- Commit summary must include commit message, included slice or bundle IDs, staged paths, test result, and any excluded unrelated dirty files.
 - Do not include unrelated uncommitted changes in the staged set.
 - Prefer direct command flow over ad hoc manual steps.
 - Do not create merge commits for this workflow.

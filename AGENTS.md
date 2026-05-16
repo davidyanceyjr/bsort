@@ -218,7 +218,7 @@ After any completed implementation slice or approved bundle:
 - update `PLAN.md` if plan truth changed
 - update completed `SESSIONS/*.md` files
 - stage only current slice or bundle files
-- ask only for commit message approval
+- ask only for commit summary approval
 - commit on session branch
 - push branch
 - switch to `main`
@@ -230,7 +230,8 @@ After any completed implementation slice or approved bundle:
 
 Rules:
 - Do not ask for a separate approval to stage, push, merge, or clean.
-- The only required human gate in this flow is the commit message.
+- The only required human gate in this flow is approval of the prepared commit summary.
+- Commit summary must include commit message, included slice or bundle IDs, staged paths, test result, and any excluded unrelated dirty files.
 - Do not stage unrelated dirty worktree changes.
 - If `git pull --ff-only`, `git merge --ff-only`, or push fails, stop and ask.
 

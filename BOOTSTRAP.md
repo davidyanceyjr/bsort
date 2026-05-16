@@ -36,6 +36,7 @@ Do not create extra workflow files.
 - Do not create broad slices.
 - Prefer many narrow slices.
 - Each slice must fit one prompt chunk.
+- Do not force one session file per atomic slice.
 - `SESSION.md` must stay under 2k tokens.
 - Mark unclear work as `blocked`.
 - Do not guess through ambiguity.
@@ -61,12 +62,13 @@ L6: docs/help/release polish
 5. Assign dependencies.
 6. Mark parallel safety.
 7. Mark conflicts.
-8. Run ambiguity scan.
-9. Ask one compact planning-level question batch only if needed.
-10. Write `PLAN.md`.
-11. Write one file per slice under `SESSIONS/`.
-12. Initialize or update `SESSION.md`.
-13. Stop for Gate 1 approval.
+8. Build bundle candidates from the atomic slice graph.
+9. Run ambiguity scan.
+10. Ask one compact planning-level question batch only if needed.
+11. Write `PLAN.md`.
+12. Write one file per bundle under `SESSIONS/`.
+13. Initialize or update `SESSION.md`.
+14. Stop for Gate 1 approval.
 
 ## Ambiguity Handling
 
@@ -154,6 +156,18 @@ A slice should:
 
 Reject broad slices.
 
+## Bundle Sizing
+
+A bundle should:
+
+- contain 1 to 3 slices
+- group related work only
+- stay reviewable in one session
+- allow upstream plus downstream slices together only when both fit
+- allow independent sibling slices together only when allowed paths do not overlap
+
+Reject broad bundles.
+
 Bad:
 
 ```text
@@ -204,6 +218,10 @@ done
 blocked
 ```
 
+`PLAN.md` is atomic slice truth.
+
+Do not require one `SESSIONS/*.md` file per atomic slice.
+
 ## SESSION.md Format
 
 Keep under 2k tokens.
@@ -235,55 +253,40 @@ test_command:
 - Awaiting Gate 1 approval.
 ```
 
-## Slice File Format
+`SESSION.md` should name ready bundles, not raw slices, after bootstrap.
+
+## Bundle File Format
 
 ```md
 ---
-id:
+bundle_id:
 title:
 status: proposed
-layer:
-depends_on: []
-parallel_safe: true
-conflicts_with: []
+slice_ids: []
+execution_order: []
+parallel_groups: []
 risk: low
 allowed_paths: []
 forbidden_paths: []
-requires: []
-emits: []
 test_command:
+blocked_by: []
 ---
 
 ## Goal
 
 One sentence.
 
-## Scope
+## Slices
 
-- item
+- 0001-name
 
-## Non-Scope
+## Why This Bundle
 
-- item
-
-## Contract
-
-Inputs:
-- item
-
-Outputs:
-- item
-
-Errors:
-- item
+One short paragraph.
 
 ## Acceptance
 
 - item
-
-## Blockers
-
-- none
 ```
 
 ## Gate 1 Output
@@ -298,11 +301,18 @@ Generated:
 - SESSION.md
 - SESSIONS/*.md
 
-Proposed slices:
+Atomic slices:
 - count: N
+
+Proposed bundles:
+- bundle-id: slice-a
+- bundle-id: slice-b, slice-c
+
+Parallel:
+- bundle-id: yes|no
 
 Blocked:
 - none | N items
 
-Approve slice plan?
+Approve bundle plan?
 ```

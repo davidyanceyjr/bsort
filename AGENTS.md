@@ -32,8 +32,9 @@ I carefully reviewed the repository and considered several approaches...
 Hard limits:
 
 - `SESSION.md` max: 2k tokens.
-- Slices are implemented in budles of 3 maximum.
-- Current slice bundle files must fit in one prompt chunk.
+- Atomic slices must fit in one prompt chunk.
+- Session bundles are 3 slices maximum.
+- Current bundle file and referenced slice rows must fit in one prompt chunk.
 - Implementation stage may use max 20% of full LLM context.
 - Prefer many narrow slices over broad slices.
 - Load only files needed for the current slice bundle.
@@ -71,7 +72,7 @@ Bootstrap must not:
 - edit source files
 - write implementation code
 - install dependencies
-- mark slices ready without Gate 1 approval
+- mark bundles ready without Gate 1 approval
 
 Bootstrap asks at most one compact batch of planning-level blocker questions.
 
@@ -82,17 +83,18 @@ After bootstrap, stop at Gate 1.
 1. Read `AGENTS.md`.
 2. Read `WORKFLOW.md`.
 3. Read `SESSION.md`.
-4. Build current slice bundle from `SESSIONS/`.
-5. Read only required repo skills from `.agents/skills/*/SKILL.md`.
-6. Read only source/test files listed by slice bundle.
-7. Act only inside allowed paths.
-8. Run required checks.
-9. Make `SESSION.md` factually correct.
+4. Read current bundle from `SESSIONS/`.
+5. Read only needed slice rows from `PLAN.md`.
+6. Read only required repo skills from `.agents/skills/*/SKILL.md`.
+7. Read only source/test files listed by current bundle.
+8. Act only inside allowed paths.
+9. Run required checks.
+10. Make `SESSION.md` factually correct.
    Bundle truth includes current branch, completed bundle id, and completed slice list.
-10. Update `PLAN.md` if the `SESSION.md` change affects plan truth.
-11. Update the completed slice files in `SESSIONS/` so its status matches reality.
-12. Run `session-update` cleanup only if needed.
-13. Report compact result.
+11. Update `PLAN.md` if the `SESSION.md` change affects plan truth.
+12. Update the completed bundle file in `SESSIONS/` so its status matches reality.
+13. Run `session-update` cleanup only if needed.
+14. Report compact result.
 
 ## Branch Rule
 
@@ -105,13 +107,13 @@ After bootstrap, stop at Gate 1.
 
 - Make `SESSION.md` factually correct before any cleanup or plan sync.
 - Update `PLAN.md` after `SESSION.md` when the session change affects plan truth.
-- Update the completed slice file after `PLAN.md` when implementation changes slice status.
-- Keep `SESSION.md`, `PLAN.md`, and the completed `SESSIONS/*.md` file factually aligned.
+- Update the completed bundle file after `PLAN.md` when implementation changes slice status.
+- Keep `SESSION.md`, `PLAN.md`, and the completed `SESSIONS/*.md` bundle file factually aligned.
 - Do not leave `SESSION.md` without a valid next-session handoff.
 - In bundle workflow, prefer `last_completed_bundle` and `last_completed_slices` over single-slice `last_completed`.
 - Keep `SESSION.md` branch truth aligned with `git branch --show-current`.
 - Run session cleanup under the `session-update` skill only if needed.
-- Plan truth means slice status, ready queue, blocked state, dependencies, conflicts, or slice inventory.
+- Plan truth means slice status, ready queue, blocked state, dependencies, conflicts, slice inventory, or bundle inventory.
 - Do not update `PLAN.md` for session-only notes that do not change plan truth.
 
 ## Human Gates
@@ -120,8 +122,8 @@ There are two approval gates.
 
 ### Gate 1: Plan Approval
 
-Required before implementation slices are marked `ready`.
-Required before any implementation bundle is approved.
+Required after atomic slice planning and bundle selection.
+Required before implementation bundles are marked `ready`.
 
 Agent may:
 
@@ -129,7 +131,7 @@ Agent may:
 - inspect `PLAN.md`
 - propose slice list
 - propose dependencies
-- propose bundle grouping by scope
+- propose bundle grouping after slice planning
 - propose parallel-safe slices inside a bundle
 - mark blockers
 
@@ -137,7 +139,7 @@ Agent must not:
 
 - write code
 - create bundles larger than 3 slices
-- mark slices `ready` unless approved
+- mark bundles `ready` unless approved
 
 Output format:
 
@@ -149,7 +151,7 @@ Generated:
 - SESSION.md
 - SESSIONS/*.md
 
-Proposed slices:
+Atomic slices:
 - count: N
 
 Proposed bundles:
@@ -162,7 +164,7 @@ Parallel:
 Blocked:
 - none | N items
 
-Approve slice plan?
+Approve bundle plan?
 ```
 
 ### Gate 2: Implementation Approval
@@ -250,6 +252,8 @@ A slice should:
 
 Reject broad slices.
 
+Planning phase makes atomic slices only.
+
 ## Bundle Rules
 
 Each bundle must stay small.
@@ -261,9 +265,20 @@ A bundle should:
 - include only slices with clear dependency order
 - allow downstream slices in the same bundle when the bundle also includes their upstream dependency slices
 - allow parallel implementation only for slices that do not depend on each other
+- use only slices whose combined file surface stays reviewable
+- keep non-dependent slices subagent-safe only when allowed paths do not overlap
 - stay small enough for one reviewable session bundle
 
 Reject broad bundles.
+
+Bundle phase happens after atomic planning.
+
+Bundle phase should:
+
+- default to one slice when bundling is unclear
+- preserve atomic slice truth from `PLAN.md`
+- write one executable session bundle file under `SESSIONS/`
+- keep workflow-file ownership with the parent agent when subagents are used
 
 Bad:
 
@@ -284,7 +299,7 @@ Good:
 
 When project grows, add slices. Do not widen slices.
 
-Bundle related slices. Do not merge unrelated scopes.
+Bundle related slices later. Do not merge unrelated scopes.
 
 Prefer:
 
@@ -400,7 +415,10 @@ After implementation:
 ```text
 DONE
 
-Slice:
+Bundle:
+- bundle-id
+
+Slices:
 - 0001-name
 
 Changed:
@@ -493,11 +511,13 @@ After implementation sessions, run the post-implementation git flow.
 
 ## Definition of Done
 
-Slice is done only when:
+Bundle is done only when:
 
 - acceptance criteria met
 - allowed paths respected
 - forbidden paths untouched
 - required tests run or reason documented
 - `SESSION.md` updated
+- `PLAN.md` slice status updated
+- current `SESSIONS/*.md` bundle file updated
 - compact result reported

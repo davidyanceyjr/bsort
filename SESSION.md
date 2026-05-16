@@ -1,11 +1,11 @@
 # SESSION
 
-current_slice:
-last_completed_bundle: 0015-cli-acceptance-tests
+current_slice: 0029-release-installer-script
+last_completed_bundle: 0029-release-installer-script
 last_completed_slices:
-- 0015-cli-acceptance-tests
-status: idle
-branch: slice/check-cli-broken-pipe-fix
+- 0029-release-installer-script
+status: completed
+branch: slice/0029-release-installer
 test_command: cargo test
 
 ## Ready
@@ -40,4 +40,5 @@ approved_layers:
 - Session verification: `CARGO_HOME=.cargo-home RUSTUP_HOME=.rustup-home cargo test` passes.
 - CI hotfix branch `slice/ci-format-fix` prepared; formatting drift fixed and `src/help.rs` updated to satisfy `clippy -D warnings`.
 - Follow-up hotfix branch `slice/check-cli-broken-pipe-fix` prepared; `tests/check_cli.rs` now tolerates `BrokenPipe` when the CLI exits before consuming stdin.
-- Project complete.
+- New requested work: slice `0029` proposed to add a shipped `install.sh` into release output.
+- Slice `0029` implemented on session branch; release artifact now stages `install.sh` beside `bsort`, and README documents artifact install usage.

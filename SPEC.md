@@ -73,6 +73,10 @@ REQ-022: Normal sorted output must be written to stdout.
 REQ-023: Errors must be written to stderr.
 
 REQ-024: The program must expose stable exit codes.
+REQ-025: Delivered release output must include a POSIX shell installer for the built binary.
+REQ-026: The installer must copy the shipped binary into a user-selected destination directory.
+REQ-027: The installer must default to `/usr/local/bin` when no destination is provided.
+REQ-028: The installer must fail with a non-zero exit code and stderr message when the shipped binary is missing or the destination is not writable.
 
 ## Non-Functional
 
@@ -170,6 +174,17 @@ Rules:
 ## Error Output
 
 Errors must be human-readable and written to stderr.
+
+## Delivered Release Output
+
+Release artifacts may include helper files for installation.
+
+Installer rules:
+
+- installer file name: `install.sh`
+- installer shell: POSIX `sh`
+- installer default destination: `/usr/local/bin`
+- installer copies the shipped `bsort` binary into the destination directory
 
 # EXIT STATUS
 

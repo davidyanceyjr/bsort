@@ -63,6 +63,22 @@ Checks:
 cargo test
 ```
 
+## Release Artifact Install
+
+Release draft artifacts include:
+
+- `bsort`
+- `install.sh`
+
+Install from an unpacked artifact:
+
+```text
+sh install.sh
+sh install.sh /custom/bin
+```
+
+`install.sh` copies `bsort` into `/usr/local/bin` by default.
+
 ## Git Workflow
 
 - Default policy: use one branch per small related slice bundle.

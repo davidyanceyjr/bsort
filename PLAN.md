@@ -38,6 +38,7 @@
 | 0026 | L0 | branch-bundle-policy | done | 0025 | false | 0027, 0028 | low |
 | 0027 | L1 | pr-template-for-slice-bundles | done | 0026 | false | 0028 | low |
 | 0028 | L2 | pr-policy-ci-check | done | 0026, 0027 | false | none | medium |
+| 0029 | L6 | release-installer-script | done | 0022 | false | none | medium |
 
 ## Ready Queue
 

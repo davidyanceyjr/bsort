@@ -37,16 +37,22 @@ jobs:
         run: |
           mkdir -p "${{ steps.artifact.outputs.stage_dir }}"
           cp "target/release/${{ steps.artifact.outputs.package_name }}" "${{ steps.artifact.outputs.stage_dir }}/${{ steps.artifact.outputs.package_name }}"
+          cp "scripts/install.sh" "${{ steps.artifact.outputs.stage_dir }}/install.sh"
+          chmod +x "${{ steps.artifact.outputs.stage_dir }}/${{ steps.artifact.outputs.package_name }}"
+          chmod +x "${{ steps.artifact.outputs.stage_dir }}/install.sh"
 
       - name: Validate staged artifact
         run: |
           stage_dir="${{ steps.artifact.outputs.stage_dir }}"
           binary_path="${stage_dir}/${{ steps.artifact.outputs.package_name }}"
+          installer_path="${stage_dir}/install.sh"
 
           test -d "${stage_dir}"
           test -f "${binary_path}"
           test -x "${binary_path}"
-          test "$(find "${stage_dir}" -maxdepth 1 -type f | wc -l)" -eq 1
+          test -f "${installer_path}"
+          test -x "${installer_path}"
+          test "$(find "${stage_dir}" -maxdepth 1 -type f | wc -l)" -eq 2
 
       - name: Upload draft artifact
         uses: actions/upload-artifact@v4

@@ -1,5 +1,5 @@
 use std::fs;
-use std::io::Write;
+use std::io::{ErrorKind, Write};
 use std::process::{Command, Stdio};
 use std::time::{SystemTime, UNIX_EPOCH};
 
@@ -12,12 +12,16 @@ fn run_with_stdin(args: &[&str], input: &str) -> std::process::Output {
         .spawn()
         .expect("binary should run");
 
-    child
+    match child
         .stdin
         .take()
         .expect("stdin should be available")
         .write_all(input.as_bytes())
-        .expect("write should succeed");
+    {
+        Ok(()) => {}
+        Err(err) if err.kind() == ErrorKind::BrokenPipe => {}
+        Err(err) => panic!("write should succeed: {err}"),
+    }
 
     child.wait_with_output().expect("wait should succeed")
 }

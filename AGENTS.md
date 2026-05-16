@@ -87,6 +87,12 @@ After bootstrap, stop at Gate 1.
 8. Update `SESSION.md`.
 9. Report compact result.
 
+## Plan Sync Rule
+
+- Update `PLAN.md` after `SESSION.md` when the session change affects plan truth.
+- Plan truth means slice status, ready queue, blocked state, dependencies, conflicts, or slice inventory.
+- Do not update `PLAN.md` for session-only notes that do not change plan truth.
+
 ## Human Gates
 
 There are two approval gates.

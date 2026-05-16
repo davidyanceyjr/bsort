@@ -35,13 +35,12 @@
 | 0023 | L0 | local-git-init | done | 0016 | false | 0024, 0025 | low |
 | 0024 | L0 | local-git-hygiene | done | 0023, 0016, 0017 | false | 0023, 0025 | low |
 | 0025 | L6 | gh-remote-wiring | done | 0023, 0024 | false | 0023, 0024 | medium |
-| 0026 | L0 | branch-bundle-policy | ready | 0025 | false | 0027, 0028 | low |
-| 0027 | L1 | pr-template-for-slice-bundles | approved | 0026 | false | 0028 | low |
-| 0028 | L2 | pr-policy-ci-check | approved | 0026, 0027 | false | none | medium |
+| 0026 | L0 | branch-bundle-policy | done | 0025 | false | 0027, 0028 | low |
+| 0027 | L1 | pr-template-for-slice-bundles | done | 0026 | false | 0028 | low |
+| 0028 | L2 | pr-policy-ci-check | done | 0026, 0027 | false | none | medium |
 
 ## Ready Queue
 
-- 0026-branch-bundle-policy
 - 0002-exit-codes-and-shared-types
 - 0003-bubble-sort-core
 - 0004-order-helpers

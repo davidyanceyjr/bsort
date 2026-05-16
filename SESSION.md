@@ -1,14 +1,13 @@
 # SESSION
 
 current_slice:
-last_completed: 0025-gh-remote-wiring
-status: ready
+last_completed: 0028-pr-policy-ci-check
+status: completed
 branch: main
 test_command: cargo test
 
 ## Ready
 
-- 0026-branch-bundle-policy
 - 0003-bubble-sort-core
 - 0004-order-helpers
 - 0009-stdin-reader
@@ -57,4 +56,9 @@ test_command: cargo test
 - Planning decision: default branch workflow is policy B, one branch per small related slice bundle.
 - Proposed repo workflow slice bundle added: `0026` to `0028`.
 - Gate 1 approved for repo workflow slice bundle `0026` to `0028`.
-- `0026-branch-bundle-policy` is ready.
+- Gate 2 approved for `0026`, `0027`, and `0028`.
+- `0026-branch-bundle-policy` implemented.
+- `0027-pr-template-for-slice-bundles` implemented.
+- `0028-pr-policy-ci-check` implemented.
+- Branch policy docs now use `slice/<slice-ids>-<short-topic>`.
+- PR policy workflow checks branch naming and required PR body sections.

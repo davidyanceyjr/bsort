@@ -60,3 +60,14 @@ Checks:
 ```text
 cargo test
 ```
+
+## Git Workflow
+
+- Default policy: use one branch per small related slice bundle.
+- Use one slice alone when the work is already small and self-contained.
+- Do not mix unrelated slices on one branch.
+- Branch names use the shape `slice/<slice-ids>-<short-topic>`.
+- Single-slice example: `slice/0003-bubble-sort-core`
+- Bundle example: `slice/0026-0028-repo-workflow`
+
+See `.github/CONTRIBUTING.md` for contributor rules and PR expectations.

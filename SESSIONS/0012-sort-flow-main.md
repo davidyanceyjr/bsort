@@ -1,7 +1,7 @@
 ---
 id: 0012
 title: sort-flow-main
-status: proposed
+status: done
 layer: L5
 depends_on: ["0002", "0003", "0004", "0006", "0007", "0008", "0009", "0010", "0011"]
 parallel_safe: false
@@ -50,4 +50,4 @@ Errors:
 
 ## Blockers
 
-- Depends on blocked slices `0007` and `0008`.
+- none

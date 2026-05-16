@@ -21,7 +21,7 @@
 | 0009 | L4 | stdin-reader | done | 0001 | true | none | low |
 | 0010 | L4 | file-reader-and-exit3 | done | 0001, 0002 | true | none | low |
 | 0011 | L4 | output-formatters-and-count | done | 0001, 0002 | true | none | low |
-| 0012 | L5 | sort-flow-main | ready | 0002, 0003, 0004, 0006, 0007, 0008, 0009, 0010, 0011 | false | 0001, 0013, 0014 | high |
+| 0012 | L5 | sort-flow-main | done | 0002, 0003, 0004, 0006, 0007, 0008, 0009, 0010, 0011 | false | 0001, 0013, 0014 | high |
 | 0013 | L5 | check-flow-main | ready | 0002, 0004, 0005, 0007, 0008, 0009, 0010 | false | 0001, 0012, 0014 | medium |
 | 0014 | L6 | help-and-version | done | 0001, 0002, 0008 | false | 0001, 0012, 0013 | low |
 | 0015 | L5 | cli-acceptance-tests | approved | 0012, 0013, 0014 | false | none | medium |
@@ -41,7 +41,6 @@
 
 ## Ready Queue
 
-- 0012-sort-flow-main
 - 0013-check-flow-main
 
 ## Blocked

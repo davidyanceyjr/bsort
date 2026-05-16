@@ -37,5 +37,41 @@ pub fn run() -> AppResult<()> {
         return Ok(());
     }
 
+    let input = read_input(&config)?;
+    let values = parse_lines(&input, config.ignore_blank)?;
+    let output = run_sort_mode(&config, values);
+
+    print!("{output}");
+
     Ok(())
+}
+
+fn read_input(config: &CliConfig) -> AppResult<String> {
+    match config.input_path.as_deref() {
+        Some(path) => read_file_text(path),
+        None => read_stdin_text()
+            .map_err(|err| AppError::new(IO_ERROR, format!("stdin: {err}"))),
+    }
+}
+
+fn run_sort_mode(config: &CliConfig, values: Vec<i64>) -> String {
+    match config.mode {
+        Mode::Sort => format_values(&apply_sort_options(values, config.order, config.unique)),
+        Mode::Count => format_count(values.len()),
+        Mode::Check => String::new(),
+    }
+}
+
+fn apply_sort_options(values: Vec<i64>, order: Order, unique: bool) -> Vec<i64> {
+    let mut sorted = bubble_sort(&values);
+
+    if order == Order::Descending {
+        sorted.reverse();
+    }
+
+    if unique {
+        dedupe_sorted(&sorted)
+    } else {
+        sorted
+    }
 }

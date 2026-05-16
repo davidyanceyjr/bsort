@@ -1,11 +1,11 @@
 # SESSION
 
 current_slice:
-last_completed_bundle: 0014-help-and-version
+last_completed_bundle: 0012-sort-flow-main
 last_completed_slices:
-- 0014-help-and-version
+- 0012-sort-flow-main
 status: idle
-branch: main
+branch: slice/0012-sort-flow-main
 test_command: cargo test
 
 ## Ready
@@ -36,5 +36,6 @@ approved_layers:
 - Slice `0008` implemented locally; parser wired into `run()` and exit codes now flow through `main`.
 - Bundle `0010` + `0011` implemented locally; file-read exit-3 mapping and output formatters added.
 - Slice `0014` merged to `main`; help/version now short-circuit to stdout with exit `0`.
+- Slice `0012` implemented on session branch; normal sort/count flows now read stdin or file, parse values, and print stdout results.
 - Session verification: `CARGO_HOME=.cargo-home RUSTUP_HOME=.rustup-home cargo test` passes.
-- Next ready slice: `0012-sort-flow-main`.
+- Next ready slice: `0013-check-flow-main`.

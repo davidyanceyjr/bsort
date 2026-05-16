@@ -33,6 +33,6 @@ fn binary_accepts_normal_stdin_content() {
     let output = child.wait_with_output().expect("wait should succeed");
 
     assert!(output.status.success());
-    assert!(output.stdout.is_empty());
+    assert_eq!(String::from_utf8_lossy(&output.stdout), "2\n4\n9\n");
     assert!(output.stderr.is_empty());
 }

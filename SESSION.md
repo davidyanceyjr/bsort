@@ -5,7 +5,7 @@ last_completed_bundle: 0014-help-and-version
 last_completed_slices:
 - 0014-help-and-version
 status: idle
-branch: slice/0014-help-version
+branch: main
 test_command: cargo test
 
 ## Ready
@@ -35,6 +35,6 @@ approved_layers:
 - `origin/main` is synced with local `main`.
 - Slice `0008` implemented locally; parser wired into `run()` and exit codes now flow through `main`.
 - Bundle `0010` + `0011` implemented locally; file-read exit-3 mapping and output formatters added.
-- Slice `0014` implemented on `slice/0014-help-version`; help/version now short-circuit to stdout with exit `0`.
+- Slice `0014` merged to `main`; help/version now short-circuit to stdout with exit `0`.
 - Session verification: `CARGO_HOME=.cargo-home RUSTUP_HOME=.rustup-home cargo test` passes.
 - Next ready slice: `0012-sort-flow-main`.

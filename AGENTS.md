@@ -215,7 +215,7 @@ After approval, implement only that bundle.
 ## Post-Implementation Git Flow
 
 After any completed implementation slice or approved bundle:
-- run required tests
+- run required local tests
 - update `SESSION.md`
 - update `PLAN.md` if plan truth changed
 - update completed `SESSIONS/*.md` files
@@ -223,6 +223,7 @@ After any completed implementation slice or approved bundle:
 - ask only for commit summary approval
 - commit on session branch
 - push branch
+- wait for required remote tests / CI / CD checks to complete
 - switch to `main`
 - `git pull --ff-only`
 - `git merge --ff-only <session-branch>`
@@ -235,7 +236,25 @@ Rules:
 - The only required human gate in this flow is approval of the prepared commit summary.
 - Commit summary must include commit message, included slice or bundle IDs, staged paths, test result, and any excluded unrelated dirty files.
 - Do not stage unrelated dirty worktree changes.
+- If any required local test, remote test, or CI/CD check fails, stop and ask.
+- A failed local test, failed remote test, or failed CI/CD check is a human-gated boundary.
+- Do not merge to `main`, mark `DONE`, or clean the session branch while required remote checks are failing or incomplete.
 - If `git pull --ff-only`, `git merge --ff-only`, or push fails, stop and ask.
+
+Blocked format for check failure:
+
+```text
+BLOCKED
+
+Bundle:
+- bundle-id
+
+Reason:
+- required local or remote checks failed
+
+Need:
+- human decision before merge, rerun, or further changes
+```
 
 ## Slice Rules
 

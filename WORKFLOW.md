@@ -123,7 +123,7 @@ Rules:
 ## Post-Implementation Git Flow
 
 After any implementation slice or approved bundle is complete:
-1. Run required tests and confirm pass or document why not run.
+1. Run required local tests and confirm pass or document why not run.
 2. Sync `SESSION.md`.
 3. Sync `PLAN.md` if plan truth changed.
 4. Sync the completed `SESSIONS/<id>-*.md` files.
@@ -131,13 +131,15 @@ After any implementation slice or approved bundle is complete:
 6. Ask for approval only on the prepared commit summary.
 7. Commit on the session branch.
 8. Push the session branch to `origin`.
-9. Switch to `main`.
-10. Update local `main` from `origin/main` with `git pull --ff-only`.
-11. Merge the session branch into `main` with `git merge --ff-only`.
-12. Push `main`.
-13. Delete the merged session branch locally.
-14. Delete the merged session branch on `origin`.
-15. End on clean `main`.
+9. Wait for required remote tests / CI / CD checks for the branch commit to complete.
+10. If any required remote test or CI / CD check fails, stop for a human-gated decision.
+11. Switch to `main`.
+12. Update local `main` from `origin/main` with `git pull --ff-only`.
+13. Merge the session branch into `main` with `git merge --ff-only`.
+14. Push `main`.
+15. Delete the merged session branch locally.
+16. Delete the merged session branch on `origin`.
+17. End on clean `main`.
 
 Rules:
 - Do not ask for an extra approval gate for staging, pushing, merging, or cleanup.
@@ -146,10 +148,15 @@ Rules:
 - Do not include unrelated uncommitted changes in the staged set.
 - Prefer direct command flow over ad hoc manual steps.
 - Do not create merge commits for this workflow.
+- Required checks include local tests plus required remote tests / CI / CD checks.
+- A failed local test, failed remote test, or failed CI / CD check is a mandatory human-gated boundary.
+- Do not merge to `main`, mark work `done`, or delete the session branch while any required remote check is failing or incomplete.
 
 Stop and ask if:
 - unrelated dirty files are mixed into the worktree and cannot be safely excluded
-- required tests fail
+- required local tests fail
+- required remote tests or CI / CD checks fail
+- required remote tests or CI / CD checks are still pending when the workflow would otherwise merge
 - `git pull --ff-only` fails on `main`
 - `git merge --ff-only` fails
 - push is rejected
@@ -160,6 +167,7 @@ Command pattern:
 - `git add <scoped-paths>`
 - `git commit -m "<approved-message>"`
 - `git push -u origin <session-branch>`
+- wait for required remote checks
 - `git checkout main`
 - `git pull --ff-only`
 - `git merge --ff-only <session-branch>`

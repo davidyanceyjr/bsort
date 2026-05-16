@@ -1,5 +1,7 @@
 # bsort
 
+[![CI](https://github.com/davidyanceyjr/bsort/actions/workflows/ci.yml/badge.svg)](https://github.com/davidyanceyjr/bsort/actions/workflows/ci.yml)
+
 Small Rust CLI that sorts newline-separated signed integers using bubble sort.
 
 ## Status

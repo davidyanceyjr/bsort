@@ -7,7 +7,10 @@ fn parse_lines_accepts_empty_input() {
 
 #[test]
 fn parse_lines_trims_whitespace() {
-    assert_eq!(parse_lines(" 1\n\t-2 \n 3 ", false).unwrap(), vec![1, -2, 3]);
+    assert_eq!(
+        parse_lines(" 1\n\t-2 \n 3 ", false).unwrap(),
+        vec![1, -2, 3]
+    );
 }
 
 #[test]

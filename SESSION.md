@@ -1,17 +1,16 @@
 # SESSION
 
 current_slice:
-last_completed_bundle: 0012-sort-flow-main
+last_completed_bundle: 0013-check-flow-main
 last_completed_slices:
-- 0012-sort-flow-main
+- 0013-check-flow-main
 status: idle
-branch: slice/0012-sort-flow-main
+branch: slice/0013-check-flow-main
 test_command: cargo test
 
 ## Ready
 
-- 0012-sort-flow-main
-- 0013-check-flow-main
+- 0015-cli-acceptance-tests
 
 ## Active
 
@@ -37,5 +36,6 @@ approved_layers:
 - Bundle `0010` + `0011` implemented locally; file-read exit-3 mapping and output formatters added.
 - Slice `0014` merged to `main`; help/version now short-circuit to stdout with exit `0`.
 - Slice `0012` implemented on session branch; normal sort/count flows now read stdin or file, parse values, and print stdout results.
+- Slice `0013` implemented on session branch; `--check` now exits `0` for sorted input, `1` for unsorted input, and prints no stdout/stderr for check outcomes.
 - Session verification: `CARGO_HOME=.cargo-home RUSTUP_HOME=.rustup-home cargo test` passes.
-- Next ready slice: `0013-check-flow-main`.
+- Next ready slice: `0015-cli-acceptance-tests`.

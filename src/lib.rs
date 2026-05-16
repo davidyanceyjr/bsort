@@ -39,7 +39,7 @@ pub fn run() -> AppResult<()> {
 
     let input = read_input(&config)?;
     let values = parse_lines(&input, config.ignore_blank)?;
-    let output = run_sort_mode(&config, values);
+    let output = run_mode(&config, values)?;
 
     print!("{output}");
 
@@ -54,11 +54,21 @@ fn read_input(config: &CliConfig) -> AppResult<String> {
     }
 }
 
-fn run_sort_mode(config: &CliConfig, values: Vec<i64>) -> String {
+fn run_mode(config: &CliConfig, values: Vec<i64>) -> AppResult<String> {
     match config.mode {
-        Mode::Sort => format_values(&apply_sort_options(values, config.order, config.unique)),
-        Mode::Count => format_count(values.len()),
-        Mode::Check => String::new(),
+        Mode::Sort => Ok(format_values(&apply_sort_options(
+            values,
+            config.order,
+            config.unique,
+        ))),
+        Mode::Count => Ok(format_count(values.len())),
+        Mode::Check => {
+            if is_sorted(&values, config.order) {
+                Ok(String::new())
+            } else {
+                Err(AppError::new(CHECK_FAILED, ""))
+            }
+        }
     }
 }
 

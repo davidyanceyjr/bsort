@@ -1,7 +1,7 @@
 ---
 id: 0013
 title: check-flow-main
-status: proposed
+status: done
 layer: L5
 depends_on: ["0002", "0004", "0005", "0007", "0008", "0009", "0010"]
 parallel_safe: false
@@ -49,4 +49,4 @@ Errors:
 
 ## Blockers
 
-- Depends on blocked slices `0007` and `0008`.
+- none

@@ -51,7 +51,7 @@ BOOTSTRAP.md
 SESSIONS/*.md
 AGENTS.md
 WORKFLOW.md
-SKILLS/*.md
+.agents/skills/*/SKILL.md
 ```
 
 No extra planning docs unless human approves.
@@ -83,7 +83,7 @@ After bootstrap, stop at Gate 1.
 2. Read `WORKFLOW.md`.
 3. Read `SESSION.md`.
 4. Build current slice bundle from `SESSIONS/`.
-5. Read only required `SKILLS/`.
+5. Read only required repo skills from `.agents/skills/*/SKILL.md`.
 6. Read only source/test files listed by slice bundle.
 7. Act only inside allowed paths.
 8. Run required checks.
